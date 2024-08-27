@@ -1,0 +1,20 @@
+
+
+Version:	3.50
+CmdLine:	C:\StreamSync-Server\StreamSync.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\StreamSync-Server\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.004.000
+Java max ver:	
+Substitute:	JAVA_HOME = 
+Substitute:	PATH = C:\Program Files\Java\jdk-21\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\am371\AppData\Local\Programs\Python\Launcher\;C:\Users\am371\AppData\Local\Microsoft\WindowsApps;C:\Users\am371\AppData\Local\Programs\Microsoft VS Code\bin;D:\flutter\bin;C:\Users\am371\AppData\Roaming\npm;C:\Users\am371\AppData\Local\Pub\Cache\bin;C:\tools\dart-sdk\bin;C:\Users\am371\AppData\Roaming\Pub\Cache\bin;C:\Program Files\heroku\bin;C:\Users\am371\.dotnet\tools;C:\Program Files\Java\jdk-21\bin
+JRE paths:	;C:\Program Files\Java\jdk-21\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\am371\AppData\Local\Programs\Python\Launcher\;C:\Users\am371\AppData\Local\Microsoft\WindowsApps;C:\Users\am371\AppData\Local\Programs\Microsoft VS Code\bin;D:\flutter\bin;C:\Users\am371\AppData\Roaming\npm;C:\Users\am371\AppData\Local\Pub\Cache\bin;C:\tools\dart-sdk\bin;C:\Users\am371\AppData\Roaming\Pub\Cache\bin;C:\Program Files\heroku\bin;C:\Users\am371\.dotnet\tools;C:\Program Files\Java\jdk-21\bin
+Check launcher:	C:\Program Files\Java\jdk-21\bin\javaw.exe (OK)
+Version string: 1.021.000_002 / 64-Bit (OK)
+Launcher:	C:\Program Files\Java\jdk-21\bin\javaw.exe
+Launcher args:	-jar "C:\StreamSync-Server\StreamSync.exe"
+Args length:	42/32768 chars
+Exit code:	0
