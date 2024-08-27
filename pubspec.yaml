@@ -31,10 +31,21 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_reactive_ble: ^5.3.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
+  permission_handler: ^8.1.0
+
+  holding_gesture: ^1.2.0 # Ensure this version supports null safety
+
+  flutter_bluetooth_serial: ^0.4.0 # Ensure this version supports null safety
+  vibration: ^1.9.0
+
+  sensors_plus: ^6.0.1
+  control_pad_plus: ^0.1.0
+  device_info_plus: ^10.1.2
 
 dev_dependencies:
   flutter_test:
@@ -46,6 +57,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
+  web_socket_channel: ^3.0.1
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
