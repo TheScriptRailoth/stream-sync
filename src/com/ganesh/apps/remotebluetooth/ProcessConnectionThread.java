@@ -1,5 +1,6 @@
 package com.ganesh.apps.remotebluetooth;
 
+import java.awt.Event;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Robot;
@@ -30,7 +31,7 @@ public class ProcessConnectionThread implements Runnable {
 			try {
 				inputStream.close();
 				mConnection.close();
-			}catch (IOException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
@@ -38,7 +39,6 @@ public class ProcessConnectionThread implements Runnable {
 	
 	public ProcessConnectionThread(StreamConnection connection) {
 		mConnection = connection;
-		run();
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class ProcessConnectionThread implements Runnable {
 			while (true&&!threadStop) {
 				int command = inputStream.read();
 				if (command == EXIT_CMD) {
-					System.out.println("finish process");
+					System.out.println("Finish process");
 					break;
 				}
 
@@ -121,13 +121,30 @@ boolean dragStarted = false;
 				robot.mouseRelease(InputEvent.BUTTON1_MASK);
 				return;
 			}
-			if (command.startsWith("*#*ZOOM")) {
+
+			if(command.startsWith("#*ZOOMIN")){
 				robot.keyPress(KeyEvent.VK_CONTROL);
-				double x2 = Double.parseDouble(command.substring(7, command.indexOf("*@*")));
-				robot.mouseWheel((int) (x2 * 5));
+				robot.keyPress(KeyEvent.VK_SHIFT);
+            	robot.keyPress(KeyEvent.VK_EQUALS);
+            	robot.keyRelease(KeyEvent.VK_EQUALS);
+            	robot.keyRelease(KeyEvent.VK_SHIFT);
 				robot.keyRelease(KeyEvent.VK_CONTROL);
-				return;
 			}
+
+			if(command.startsWith("#*ZOOMOUT")){
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress(KeyEvent.VK_MINUS);
+            	robot.keyRelease(KeyEvent.VK_MINUS);
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+			}
+
+			// if (command.startsWith("*#*ZOOM")) {
+			// 	robot.keyPress(KeyEvent.VK_CONTROL);
+			// 	double x2 = Double.parseDouble(command.substring(7, command.indexOf("*@*")));
+			// 	robot.mouseWheel((int) (x2 * 5));
+			// 	robot.keyRelease(KeyEvent.VK_CONTROL);
+			// 	return;
+			// }
 			if (command.startsWith("*#*SCROLL")) {
 
 				double x2 = Double.parseDouble(command.substring(9, command.indexOf("*@*")));
@@ -202,16 +219,35 @@ boolean dragStarted = false;
 				robot.keyPress(KeyEvent.VK_LEFT);
 				robot.keyRelease(KeyEvent.VK_LEFT);
 			}
-			if (command.startsWith("*#*F5*@*")) {
-				robot.keyPress(KeyEvent.VK_F5);
-				robot.keyRelease(KeyEvent.VK_F5);
+			if (command.startsWith("#enter#")) {
+				robot.keyPress(KeyEvent.VK_ENTER);
+				robot.keyRelease(KeyEvent.VK_ENTER);
 			}
-			if (command.startsWith("*#*SHIFT+F5*@*")) {
-				robot.keyPress(KeyEvent.VK_SHIFT);
-				robot.keyPress(KeyEvent.VK_F5);
-				robot.keyRelease(KeyEvent.VK_SHIFT);
-				robot.keyRelease(KeyEvent.VK_F5);
+			if (command.startsWith("#BACKSPACE#")) {
+				robot.keyPress(KeyEvent.VK_BACK_SPACE);
+				robot.keyRelease(KeyEvent.VK_BACK_SPACE);
 			}
+
+			if (command.startsWith("#mute#")) {
+				try {
+					String c = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command \"(new-object -com wscript.shell).SendKeys([char]173)\"";
+					Runtime.getRuntime().exec(c);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+            }
+
+			if(command.startsWith("#increasevol#")){
+				String c = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command \"(new-object -com wscript.shell).SendKeys([char]175)\"";
+        		Runtime.getRuntime().exec(c);				
+			}
+
+			if(command.startsWith("#decreasevol#")){
+				String c = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command \"(new-object -com wscript.shell).SendKeys([char]174)\"";
+        		Runtime.getRuntime().exec(c);
+			}
+
+
 		} catch (
 
 		Exception e) {
@@ -229,6 +265,8 @@ boolean dragStarted = false;
 			robot.delay(10);
 			robot.keyRelease(keyCode);
 			robot.delay(10);
+
+
 		}
 	}
 }

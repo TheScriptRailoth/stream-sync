@@ -1,6 +1,2 @@
 INDEX VERSION 1.134+C:\StreamSync-Server\.metadata\.plugins\org.eclipse.jdt.core
-3413270776.index
-270699112.index
-1550369994.index
-3265309706.index
 1865797976.index

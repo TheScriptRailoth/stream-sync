@@ -51,8 +51,7 @@ public class BluetoothMainGUI {
 
 		f.setTitle("Android Bluetooth Server");
 
-        URL url = BluetoothMainGUI.class.getResource(
-                             "/resources/android-bluetooth-icon-11.jpg");
+        URL url = BluetoothMainGUI.class.getResource("/resources/android-bluetooth-icon-11.jpg");
 		ImageIcon img = new ImageIcon(url);
 		f.setIconImage(img.getImage());
 
