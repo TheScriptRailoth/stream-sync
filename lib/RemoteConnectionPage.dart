@@ -145,7 +145,6 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
       _streamSubscription?.cancel();
       print('we are disconnecting locally!');
     }
-
     super.dispose();
   }
 
@@ -476,7 +475,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
               Row(
                 children: <Widget>[
                   IconButton(
-                    icon: const Icon(Icons.computer),
+                    icon: const Icon(Icons.keyboard_return),
                     iconSize: (MediaQuery
                         .of(context)
                         .size
@@ -485,7 +484,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                     tooltip: 'Present from beginning',
                   ),
                   IconButton(
-                    icon: const Icon(Icons.desktop_windows),
+                    icon: const Icon(Icons.backspace),
                     iconSize: (MediaQuery
                         .of(context)
                         .size
@@ -580,7 +579,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
   }
 
   void present() {
-    _sendMessage("*#*F5*@*");
+    _sendMessage("#enter#@");
   }
 
   void exit() {
@@ -588,7 +587,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
   }
 
   void presentCurrent() {
-    _sendMessage("*#BACKSPACE#*");
+    _sendMessage("#BACKSPACE#@");
   }
 
   void goRight() {
