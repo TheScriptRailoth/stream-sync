@@ -244,15 +244,15 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                     ],
                                   ),
                                 ),
-                                child: HoldDetector(
-                                  onHold: () =>
-                                      zoom(DragUpdateDetails(
-                                          delta: Offset(0.0, -1.0),
-                                          globalPosition: Offset(0, 0))),
-                                  holdTimeout: Duration(milliseconds: 200),
-                                  enableHapticFeedback: true,
+                                child: GestureDetector(
+                                  // onHold: () =>
+                                  //     zoom(DragUpdateDetails(
+                                  //         delta: Offset(0.0, -1.0),
+                                  //         globalPosition: Offset(0, 0))),
+                                  // holdTimeout: Duration(milliseconds: 200),
+                                  // enableHapticFeedback: true,
                                   child: IconButton(
-                                    onPressed: (){},
+                                    onPressed: ()=> increaseVol(),
                                     icon: Icon(
                                       Icons.volume_up_outlined,
                                       color: Colors.white,
@@ -278,15 +278,15 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                     ],
                                   ),
                                 ),
-                                child: HoldDetector(
-                                  onHold: () =>
-                                      zoom(DragUpdateDetails(
-                                          delta: Offset(0.0, -1.0),
-                                          globalPosition: Offset(0, 0))),
-                                  holdTimeout: Duration(milliseconds: 200),
-                                  enableHapticFeedback: true,
+                                child: GestureDetector(
+                                  // onHold: () =>
+                                  //     zoom(DragUpdateDetails(
+                                  //         delta: Offset(0.0, -1.0),
+                                  //         globalPosition: Offset(0, 0))),
+                                  // holdTimeout: Duration(milliseconds: 200),
+                                  // enableHapticFeedback: true,
                                   child: IconButton(
-                                    onPressed: (){},
+                                    onPressed: ()=> decreaseVol(),
                                     icon: Icon(
                                       Icons.volume_down_outlined,
                                       color: Colors.white,
@@ -759,6 +759,14 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
   
   void muteVolume(){
     _sendMessage("#mute#@");
+  }
+
+  void increaseVol(){
+    _sendMessage("#increasevol#@");
+  }
+
+  void decreaseVol(){
+    _sendMessage("#decreasevol#@");
   }
 
   void _onDataReceived(Uint8List data) {
