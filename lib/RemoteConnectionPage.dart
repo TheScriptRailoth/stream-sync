@@ -224,44 +224,193 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                               .height - 40,
                           // color: Colors.red,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
-                              HoldDetector(
-                                onHold: () =>
-                                    zoom(DragUpdateDetails(
-                                        delta: Offset(0.0, -1.0),
-                                        globalPosition: Offset(0, 0))),
-                                holdTimeout: Duration(milliseconds: 200),
-                                enableHapticFeedback: true,
-                                child: IconButton(
-                                  onPressed: () =>
+
+                              Container(
+                                height: MediaQuery.of(context).size.height*(1/12),
+                                width: MediaQuery.sizeOf(context).width * (1/6),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.bottomRight,
+                                    end: Alignment.topLeft,
+                                    stops: [0.1, 0.5, 0.7, 0.9],
+                                    colors: [
+                                      Color.fromARGB(255, 238, 112, 2),
+                                      Color.fromARGB(220, 238, 112, 2),
+                                      Color.fromARGB(200, 238, 112, 2),
+                                      Color.fromARGB(150, 238, 112, 2),
+                                    ],
+                                  ),
+                                ),
+                                child: HoldDetector(
+                                  onHold: () =>
                                       zoom(DragUpdateDetails(
                                           delta: Offset(0.0, -1.0),
                                           globalPosition: Offset(0, 0))),
-                                  icon: Icon(
-                                    Icons.zoom_in,
-                                    color: Colors.white,
+                                  holdTimeout: Duration(milliseconds: 200),
+                                  enableHapticFeedback: true,
+                                  child: IconButton(
+                                    onPressed: (){},
+                                    icon: Icon(
+                                      Icons.volume_up_outlined,
+                                      color: Colors.white,
+                                    ),
+                                    iconSize: 50,
                                   ),
-                                  iconSize: 50,
                                 ),
                               ),
-                              HoldDetector(
-                                onHold: () =>
-                                    zoom(DragUpdateDetails(
-                                        delta: Offset(0.0, 1.0),
-                                        globalPosition: Offset(0, 0))),
-                                holdTimeout: Duration(milliseconds: 200),
-                                enableHapticFeedback: true,
-                                child: IconButton(
-                                  onPressed: () =>
-                                      zoom(DragUpdateDetails(
-                                          delta: Offset(0.0, 1.0),
-                                          globalPosition: Offset(0, 0))),
-                                  icon: Icon(
-                                    Icons.zoom_out,
-                                    color: Colors.white,
+                              Container(
+                                height: MediaQuery.of(context).size.height*(1/12),
+                                width: MediaQuery.sizeOf(context).width * (1/6),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.bottomRight,
+                                    end: Alignment.topLeft,
+                                    stops: [0.1, 0.5, 0.7, 0.9],
+                                    colors: [
+                                      Color.fromARGB(255, 238, 112, 2),
+                                      Color.fromARGB(220, 238, 112, 2),
+                                      Color.fromARGB(200, 238, 112, 2),
+                                      Color.fromARGB(150, 238, 112, 2),
+                                    ],
                                   ),
-                                  iconSize: 50,
+                                ),
+                                child: HoldDetector(
+                                  onHold: () =>
+                                      zoom(DragUpdateDetails(
+                                          delta: Offset(0.0, -1.0),
+                                          globalPosition: Offset(0, 0))),
+                                  holdTimeout: Duration(milliseconds: 200),
+                                  enableHapticFeedback: true,
+                                  child: IconButton(
+                                    onPressed: (){},
+                                    icon: Icon(
+                                      Icons.volume_down_outlined,
+                                      color: Colors.white,
+                                    ),
+                                    iconSize: 50,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: MediaQuery.of(context).size.height*(1/12),
+                                width: MediaQuery.sizeOf(context).width * (1/6),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.bottomRight,
+                                    end: Alignment.topLeft,
+                                    stops: [0.1, 0.5, 0.7, 0.9],
+                                    colors: [
+                                      Color.fromARGB(255, 238, 112, 2),
+                                      Color.fromARGB(220, 238, 112, 2),
+                                      Color.fromARGB(200, 238, 112, 2),
+                                      Color.fromARGB(150, 238, 112, 2),
+                                    ],
+                                  ),
+                                ),
+                                child: GestureDetector(
+                                  // onHold: () =>
+                                  //     zoom(DragUpdateDetails(
+                                  //         delta: Offset(0.0, -1.0),
+                                  //         globalPosition: Offset(0, 0))),
+                                  // holdTimeout: Duration(milliseconds: 200),
+                                  // enableHapticFeedback: true,
+                                  child: IconButton(
+                                    onPressed: ()=> muteVolume(),
+                                    icon: Icon(
+                                      Icons.volume_off,
+                                      color: Colors.white,
+                                    ),
+                                    iconSize: 50,
+                                  ),
+                                ),
+                              ),
+
+                              Container(
+                                height: MediaQuery.of(context).size.height*(1/12),
+                                width: MediaQuery.sizeOf(context).width * (1/6),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.bottomRight,
+                                    end: Alignment.topLeft,
+                                    stops: [0.1, 0.5, 0.7, 0.9],
+                                    colors: [
+                                      Color.fromARGB(255, 238, 112, 2),
+                                      Color.fromARGB(220, 238, 112, 2),
+                                      Color.fromARGB(200, 238, 112, 2),
+                                      Color.fromARGB(150, 238, 112, 2),
+                                    ],
+                                  ),
+                                ),
+                                child: HoldDetector(
+                                  onHold: () {
+
+                                  },
+                                  //     zoom(DragUpdateDetails(
+                                  //         delta: Offset(0.0, -1.0),
+                                  //         globalPosition: Offset(0, 0))),
+                                  // holdTimeout: Duration(milliseconds: 200),
+                                  // enableHapticFeedback: true,
+                                  child: IconButton(
+                                    onPressed: () =>  zoomIn(),
+
+                                    // onPressed: () =>
+                                    //     zoom(DragUpdateDetails(
+                                    //         delta: Offset(0.0, -1.0),
+                                    //         globalPosition: Offset(0, 0))),
+                                    icon: Icon(
+                                      Icons.zoom_in,
+                                      color: Colors.white,
+                                    ),
+                                    iconSize: 50,
+                                  ),
+                                ),
+                              ),
+
+                              Container(
+
+                                height: MediaQuery.of(context).size.height*(1/12),
+                                width: MediaQuery.sizeOf(context).width * (1/6),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.bottomRight,
+                                    end: Alignment.topLeft,
+                                    stops: [0.1, 0.5, 0.7, 0.9],
+                                    colors: [
+                                      Color.fromARGB(255, 238, 112, 2),
+                                      Color.fromARGB(220, 238, 112, 2),
+                                      Color.fromARGB(200, 238, 112, 2),
+                                      Color.fromARGB(150, 238, 112, 2),
+                                    ],
+                                  ),
+                                ),
+
+
+                                child: HoldDetector(
+                                  onHold: () {},
+                                  //     zoom(DragUpdateDetails(
+                                  //         delta: Offset(0.0, 1.0),
+                                  //         globalPosition: Offset(0, 0))),
+                                  // holdTimeout: Duration(milliseconds: 200),
+                                  //enableHapticFeedback: true,
+                                  child: IconButton(
+                                  onPressed: () => zoomOut(),
+                                    // onPressed: () =>
+                                    //     zoom(DragUpdateDetails(
+                                    //         delta: Offset(0.0, 1.0),
+                                    //         globalPosition: Offset(0, 0))),
+                                    icon: Icon(
+                                      Icons.zoom_out,
+                                      color: Colors.white,
+                                    ),
+                                    iconSize: 50,
+                                  ),
                                 ),
                               ),
                             ],
@@ -279,20 +428,23 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                           //     ),
                           //   ),
                           // ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            gradient: LinearGradient(
-                              begin: Alignment.bottomRight,
-                              end: Alignment.topLeft,
-                              stops: [0.1, 0.5, 0.7, 0.9],
-                              colors: [
-                                Color.fromARGB(255, 238, 112, 2),
-                                Color.fromARGB(220, 238, 112, 2),
-                                Color.fromARGB(200, 238, 112, 2),
-                                Color.fromARGB(150, 238, 112, 2),
-                              ],
-                            ),
-                          ),
+
+
+
+                          // decoration: BoxDecoration(
+                          //   borderRadius: BorderRadius.circular(10.0),
+                          //   gradient: LinearGradient(
+                          //     begin: Alignment.bottomRight,
+                          //     end: Alignment.topLeft,
+                          //     stops: [0.1, 0.5, 0.7, 0.9],
+                          //     colors: [
+                          //       Color.fromARGB(255, 238, 112, 2),
+                          //       Color.fromARGB(220, 238, 112, 2),
+                          //       Color.fromARGB(200, 238, 112, 2),
+                          //       Color.fromARGB(150, 238, 112, 2),
+                          //     ],
+                          //   ),
+                          // ),
                         ),
                       ),
                     ),
@@ -528,10 +680,10 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
               //   ],
               // ),
 
-              SwitchListTile(
-                  title: Text('Gyro'),
-                  onChanged: (isOn) => accelerometerControl(isOn),
-                  value: isGyroOn),
+              // SwitchListTile(
+              //     title: Text('Gyro'),
+              //     onChanged: (isOn) => accelerometerControl(isOn),
+              //     value: isGyroOn),
               Row(children: <Widget>[
                 Flexible(
                     child: Container(
@@ -578,6 +730,13 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
     }
   }
 
+  void zoomIn(){
+    _sendMessage("#*ZOOMIN@*");
+  }
+
+  void zoomOut(){
+    _sendMessage("#*ZOOMOUT@*");
+  }
   void present() {
     _sendMessage("#enter#@");
   }
@@ -596,6 +755,10 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
 
   void goLeft() {
     _sendMessage("*#*LEFT*@*");
+  }
+  
+  void muteVolume(){
+    _sendMessage("#mute#@");
   }
 
   void _onDataReceived(Uint8List data) {
