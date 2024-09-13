@@ -287,7 +287,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                   // enableHapticFeedback: true,
                                   child: IconButton(
                                     onPressed: ()=> decreaseVol(),
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.volume_down_outlined,
                                       color: Colors.white,
                                     ),
@@ -300,7 +300,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                 width: MediaQuery.sizeOf(context).width * (1/6),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),
-                                  gradient: LinearGradient(
+                                  gradient: const LinearGradient(
                                     begin: Alignment.bottomRight,
                                     end: Alignment.topLeft,
                                     stops: [0.1, 0.5, 0.7, 0.9],
@@ -321,9 +321,10 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                   // enableHapticFeedback: true,
                                   child: IconButton(
                                     onPressed: ()=> muteVolume(),
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.volume_off,
                                       color: Colors.white,
+                                      size: 24,
                                     ),
                                     iconSize: 50,
                                   ),
@@ -335,7 +336,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                 width: MediaQuery.sizeOf(context).width * (1/6),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),
-                                  gradient: LinearGradient(
+                                  gradient: const LinearGradient(
                                     begin: Alignment.bottomRight,
                                     end: Alignment.topLeft,
                                     stops: [0.1, 0.5, 0.7, 0.9],
