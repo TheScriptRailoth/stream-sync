@@ -28,6 +28,16 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Patch flutter_bluetooth_serial plugin
+        run: |
+          sed -i "/package/d" $HOME/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/src/main/AndroidManifest.xml
+          sed -i "s|android {|android {\n    namespace 'io.github.edufolly.flutterbluetoothserial'|" $HOME/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/build.gradle
+
+      - name: Patch permission_handler plugin
+        run: |
+          sed -i "/package/d" $HOME/.pub-cache/hosted/pub.dev/permission_handler-8.3.0/android/src/main/AndroidManifest.xml
+          sed -i "s|android {|android {\n    namespace 'com.baseflow.permissionhandler'|" $HOME/.pub-cache/hosted/pub.dev/permission_handler-8.3.0/android/build.gradle
+
       - name: Build APK
         run: flutter build apk --release
 
@@ -37,6 +47,33 @@ jobs:
         with:
           name: app-release.apk
           path: build/app/outputs/flutter-apk/app-release.apk
+
+#  notify:
+#    name: Notify Telegram
+#    runs-on: ubuntu-latest
+#    needs: build
+#    if: always()
+#    steps:
+#      - name: Send success message to Telegram
+#        if: success()
+#        run: |
+#          curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+#               -F document=@build/app/outputs/flutter-apk/app-release.apk \
+#               -F caption="New build is available!" \
+#               https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument
+#        env:
+#          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+#          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+#
+#      - name: Send failure message to Telegram
+#        if: failure()
+#        run: |
+#          curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+#               -F text="Build failed. Please check the logs!" \
+#               https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage
+#        env:
+#          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+#          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
   notify:
     name: Notify Telegram
@@ -49,7 +86,7 @@ jobs:
         run: |
           curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
                -F document=@build/app/outputs/flutter-apk/app-release.apk \
-               -F caption="New build is available!\nCommit: ${{ github.event.head_commit.message }}\nAuthor: ${{ github.event.head_commit.author.name }}" \
+               -F caption="🎉 **New Build Available!** 🎉\n\n*Build Status:* ✅ Successful\n*Download the APK* by clicking the link below." \
                https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
@@ -58,9 +95,8 @@ jobs:
       - name: Send failure message to Telegram
         if: failure()
         run: |
-          ERROR_MESSAGE="${{ steps.build_apk.outputs.error_message }}"
           curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-               -F text="Build failed.\nCommit: ${{ github.event.head_commit.message }}\nAuthor: ${{ github.event.head_commit.author.name }}\nError: ${ERROR_MESSAGE}" \
+               -F text="⚠️ **Build Failed** ⚠️\n\n*Build Status:* ❌ Failed\nPlease check the logs for more details." \
                https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
