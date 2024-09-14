@@ -24,8 +24,8 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.stream_sync"
-    compileSdk 34
-    ndkVersion flutter.ndkVersion
+    compileSdkVersion 34
+    ndkVersion "26.1.10909125"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
