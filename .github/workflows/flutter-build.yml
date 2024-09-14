@@ -28,21 +28,21 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      # Step 1: Modify flutter_bluetooth_serial
       - name: Fix flutter_bluetooth_serial Manifest
-        run: sed -i '/package/d' /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/src/main/AndroidManifest.xml
+        run: |
+          sed -i '/package/d' /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/src/main/AndroidManifest.xml
+          sed -i "s|android {|android {\n    namespace 'io.github.edufolly.flutterbluetoothserial'|" /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/build.gradle
 
-      - name: Add namespace to flutter_bluetooth_serial build.gradle
-        run: sed -i "s|android {|android {\n    namespace 'io.github.edufolly.flutterbluetoothserial'|" /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/build.gradle
-
+      # Step 2: Modify permission_handler
       - name: Fix permission_handler Manifest
-        run: sed -i '/package/d' /home/runner/.pub-cache/hosted/pub.dev/permission_handler-8.3.0/android/src/main/AndroidManifest.xml
+        run: |
+          sed -i '/package/d' /home/runner/.pub-cache/hosted/pub.dev/permission_handler-8.3.0/android/src/main/AndroidManifest.xml
+          sed -i "s|android {|android {\n    namespace 'com.baseflow.permissionhandler'|" /home/runner/.pub-cache/hosted/pub.dev/permission_handler-8.3.0/android/build.gradle
 
-      - name: Add namespace to permission_handler build.gradle
-        run: sed -i "s|android {|android {\n    namespace 'com.baseflow.permissionhandler'|" /home/runner/.pub-cache/hosted/pub.dev/permission_handler-8.3.0/android/build.gradle
-
-
+      # Clean and build APK
       - name: Build APK
-        run: flutter build apk --release
+        run: flutter build apk --release --stacktrace
 
       - name: Upload APK as artifact
         if: success()
@@ -51,33 +51,7 @@ jobs:
           name: app-release.apk
           path: build/app/outputs/flutter-apk/app-release.apk
 
-#  notify:
-#    name: Notify Telegram
-#    runs-on: ubuntu-latest
-#    needs: build
-#    if: always()
-#    steps:
-#      - name: Send success message to Telegram
-#        if: success()
-#        run: |
-#          curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-#               -F document=@build/app/outputs/flutter-apk/app-release.apk \
-#               -F caption="New build is available!" \
-#               https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument
-#        env:
-#          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-#          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-#
-#      - name: Send failure message to Telegram
-#        if: failure()
-#        run: |
-#          curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-#               -F text="Build failed. Please check the logs!" \
-#               https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage
-#        env:
-#          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-#          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-
+  # Telegram Notification
   notify:
     name: Notify Telegram
     runs-on: ubuntu-latest
