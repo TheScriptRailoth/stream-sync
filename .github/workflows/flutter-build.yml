@@ -49,7 +49,7 @@ jobs:
         run: |
           curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
                -F document=@build/app/outputs/flutter-apk/app-release.apk \
-               -F caption="New build is available!" \
+               -F caption="New build is available!\nCommit: ${{ github.event.head_commit.message }}\nAuthor: ${{ github.event.head_commit.author.name }}" \
                https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
@@ -58,8 +58,9 @@ jobs:
       - name: Send failure message to Telegram
         if: failure()
         run: |
+          ERROR_MESSAGE="${{ steps.build_apk.outputs.error_message }}"
           curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-               -F text="Build failed. Please check the logs!" \
+               -F text="Build failed.\nCommit: ${{ github.event.head_commit.message }}\nAuthor: ${{ github.event.head_commit.author.name }}\nError: ${ERROR_MESSAGE}" \
                https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
