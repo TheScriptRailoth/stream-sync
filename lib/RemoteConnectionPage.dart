@@ -692,6 +692,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                         child: TextField(
                           style: const TextStyle(fontSize: 15.0),
                           controller: textEditingController,
+                          onChanged: _sendStringToType,
                           decoration: InputDecoration.collapsed(
                             hintText: (isConnecting
                                 ? 'Wait until connected...'
