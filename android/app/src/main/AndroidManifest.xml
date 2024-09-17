@@ -1,48 +1,20 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
-
-
-    <!--    <uses-permission android:name="android.permission.BLUETOOTH"/>-->
-<!--    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>-->
-<!--    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>-->
-<!--    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"/>-->
-<!--    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE"/>-->
-<!--    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>-->
-
-<!--    <uses-permission android:name="android.permission.BLUETOOTH" />-->
-<!--    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />-->
-<!--    &lt;!&ndash; Needed only if your app looks for Bluetooth devices.-->
-<!--         If your app doesn't use Bluetooth scan results to derive physical-->
-<!--         location information, you can strongly assert that your app-->
-<!--         doesn't derive physical location. &ndash;&gt;-->
-<!--    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />-->
-<!--    &lt;!&ndash; Needed only if your app makes the device discoverable to Bluetooth-->
-<!--         devices. &ndash;&gt;-->
-<!--    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />-->
-<!--    &lt;!&ndash; Needed only if your app communicates with already-paired Bluetooth-->
-<!--         devices. &ndash;&gt;-->
-<!--    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />-->
-<!--    &lt;!&ndash; bibo01: hardware option &ndash;&gt;-->
-<!--    <uses-feature-->
-<!--        android:name="android.hardware.bluetooth"-->
-<!--        android:required="false" />-->
-<!--    <uses-feature-->
-<!--        android:name="android.hardware.bluetooth_le"-->
-<!--        android:required="false" />-->
 
 
     <application
         android:label="stream_sync"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        tools:replace="android:label, android:icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
