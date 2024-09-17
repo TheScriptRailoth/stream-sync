@@ -79,7 +79,7 @@ jobs:
         if: failure()
         run: |
           curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-               -F text="⚠️ Build Failed! ❌ Please check the logs for more details." \
+               -F text="⚠️ Build Failed! Please check the logs for more details." \
                https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
