@@ -39,7 +39,7 @@ dependencies:
   permission_handler: ^10.2.0
   holding_gesture: ^1.2.0
 
-  flutter_bluetooth_serial:
+  flutter_bluetooth_serial: ^0.4.0
   vibration: ^1.9.0
   sensors_plus: ^6.0.1
   control_pad_plus: ^0.1.0
