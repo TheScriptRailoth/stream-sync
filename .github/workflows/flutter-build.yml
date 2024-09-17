@@ -55,8 +55,11 @@ jobs:
       - name: View AndroidManifest.xml before modification
         run: cat /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/src/main/AndroidManifest.xml
 
+
       - name: Fix flutter_bluetooth_serial Manifest
-        run: sed -i '/package/d' /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/src/main/AndroidManifest.xml
+        run: |
+          # Ensure manifest tag is properly formatted in flutter_bluetooth_serial
+          sed -i 's|<manifest|<manifest xmlns:android="http://schemas.android.com/apk/res/android"|' /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/src/main/AndroidManifest.xml
 
       - name: View AndroidManifest.xml after modification
         run: cat /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/src/main/AndroidManifest.xml
