@@ -83,7 +83,7 @@ jobs:
         if: success()
         run: |
           curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-               -F document=@build/app/outputs/flutter-apk/app-release.apk \
+               -F document=@$(pwd)/build/app/outputs/flutter-apk/app-release.apk \
                -F caption="🎉 New Build Available! ✅ Download the APK by clicking the link below." \
                https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument
         env:
