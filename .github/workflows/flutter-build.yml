@@ -42,11 +42,11 @@ jobs:
       - name: Add namespace to flutter_bluetooth_serial build.gradle
         run: sed -i "s|android {|android {\n    namespace 'io.github.edufolly.flutterbluetoothserial'|" /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/build.gradle
 
-      - name: Fix permission_handler Manifest
-        run: sed -i '/package/d' /home/runner/.pub-cache/hosted/pub.dev/permission_handler-8.3.0/android/src/main/AndroidManifest.xml
-
-      - name: Add namespace to permission_handler build.gradle
-        run: sed -i "s|android {|android {\n    namespace 'com.baseflow.permissionhandler'|" /home/runner/.pub-cache/hosted/pub.dev/permission_handler-8.3.0/android/build.gradle
+#      - name: Fix permission_handler Manifest
+#        run: sed -i '/package/d' /home/runner/.pub-cache/hosted/pub.dev/permission_handler-8.3.0/android/src/main/AndroidManifest.xml
+#
+#      - name: Add namespace to permission_handler build.gradle
+#        run: sed -i "s|android {|android {\n    namespace 'com.baseflow.permissionhandler'|" /home/runner/.pub-cache/hosted/pub.dev/permission_handler-8.3.0/android/build.gradle
 
       - name: Build APK
         run: flutter build apk --release
