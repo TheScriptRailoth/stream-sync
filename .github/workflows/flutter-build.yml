@@ -36,11 +36,10 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-
       - name: Print directory structure
         run: |
-            ls -al /home/runner/.pub-cache/hosted/pub.dev
-            ls -al /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android
+          ls -al /home/runner/.pub-cache/hosted/pub.dev
+          ls -al /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android
 
       - name: View build.gradle before modification
         run: cat /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/build.gradle
@@ -51,37 +50,18 @@ jobs:
       - name: View build.gradle after modification
         run: cat /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/build.gradle
 
-
       - name: View AndroidManifest.xml before modification
         run: cat /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/src/main/AndroidManifest.xml
 
-
       - name: Fix flutter_bluetooth_serial Manifest
         run: |
-          # Ensure manifest tag is properly formatted in flutter_bluetooth_serial
-          sed -i 's|<manifest|<manifest xmlns:android="http://schemas.android.com/apk/res/android"|' /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/src/main/AndroidManifest.xml
+          # Check if xmlns:android is already present
+          if ! grep -q 'xmlns:android="http://schemas.android.com/apk/res/android"' /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/src/main/AndroidManifest.xml; then
+            sed -i 's|<manifest|<manifest xmlns:android="http://schemas.android.com/apk/res/android"|' /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/src/main/AndroidManifest.xml
+          fi
 
       - name: View AndroidManifest.xml after modification
         run: cat /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/src/main/AndroidManifest.xml
-
-
-
-
-
-      #      - name: Fix flutter_bluetooth_serial Manifest
-#        run: sed -i '/package/d' /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/src/main/AndroidManifest.xml
-#
-#      - name: Add namespace to flutter_bluetooth_serial build.gradle
-#        run: sed -i "s|android {|android {\n    namespace 'io.github.edufolly.flutterbluetoothserial'|" /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/build.gradle
-
-#      - name: Fix permission_handler Manifest
-#        run: sed -i '/package/d' /home/runner/.pub-cache/hosted/pub.dev/permission_handler-8.3.0/android/src/main/AndroidManifest.xml
-#
-#      - name: Add namespace to permission_handler build.gradle
-#        run: sed -i "s|android {|android {\n    namespace 'com.baseflow.permissionhandler'|" /home/runner/.pub-cache/hosted/pub.dev/permission_handler-8.3.0/android/build.gradle
-
-#      - name: Build APK
-#        run: flutter build apk --release
 
       - name: Build APK with verbose logging
         run: flutter build apk --release --verbose
