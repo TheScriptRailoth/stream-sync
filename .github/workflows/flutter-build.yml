@@ -36,10 +36,6 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Print directory structure
-        run: |
-          ls -al /home/runner/.pub-cache/hosted/pub.dev
-          ls -al /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android
 
       - name: View build.gradle before modification
         run: cat /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/build.gradle
@@ -63,8 +59,9 @@ jobs:
       - name: View AndroidManifest.xml after modification
         run: cat /home/runner/.pub-cache/hosted/pub.dev/flutter_bluetooth_serial-0.4.0/android/src/main/AndroidManifest.xml
 
-      - name: Build APK with verbose logging
-        run: flutter build apk --release --verbose
+
+      - name: Build APK
+        run: flutter build apk --release
 
       - name: Upload APK as artifact
         if: success()
@@ -73,29 +70,53 @@ jobs:
           name: app-release.apk
           path: build/app/outputs/flutter-apk/app-release.apk
 
+#  notify:
+#    name: Notify Telegram
+#    runs-on: ubuntu-latest
+#    needs: build
+#    if: always()
+#    steps:
+#      - name: Send success message to Telegram
+#        if: success()
+#        run: |
+#          curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+#               -F document=@$(pwd)/build/app/outputs/flutter-apk/app-release.apk \
+#               -F caption="🎉 New Build Available! ✅ Download the APK by clicking the link below." \
+#               https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument
+#        env:
+#          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+#          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+#
+#      - name: Send failure message to Telegram
+#        if: failure()
+#        run: |
+#          curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+#               -F text="⚠️ Build Failed! Please check the logs for more details." \
+#               https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage
+#        env:
+#          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+#          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
   notify:
     name: Notify Telegram
     runs-on: ubuntu-latest
     needs: build
     if: always()
     steps:
+      - name: List APK files
+        run: ls -l build/app/outputs/flutter-apk/
+
       - name: Send success message to Telegram
         if: success()
         run: |
-          curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-               -F document=@$(pwd)/build/app/outputs/flutter-apk/app-release.apk \
-               -F caption="🎉 New Build Available! ✅ Download the APK by clicking the link below." \
-               https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument
-        env:
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-
-      - name: Send failure message to Telegram
-        if: failure()
-        run: |
-          curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-               -F text="⚠️ Build Failed! Please check the logs for more details." \
-               https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage
+          apk_path=$(pwd)/build/app/outputs/flutter-apk/app-release.apk
+          if [ -f "$apk_path" ]; then
+            curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+                 -F document=@"$apk_path" \
+                 -F caption="🎉 New Build Available! ✅ Download the APK by clicking the link below." \
+                 https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument
+          else
+            echo "APK file not found: $apk_path"
+          fi
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
