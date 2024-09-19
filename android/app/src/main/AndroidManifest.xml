@@ -11,8 +11,8 @@
 
 
     <application
-        android:label="stream_sync"
-        android:name="StreamSync"
+        android:label="StreamSync"
+        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         tools:replace="android:label, android:icon">
         <activity

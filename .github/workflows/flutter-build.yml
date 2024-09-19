@@ -70,12 +70,16 @@ jobs:
           name: app-release.apk
           path: build/app/outputs/flutter-apk/app-release.apk
 
+      - name: Get Committer Name
+        id: get_committer
+        run: echo "COMMITTER_NAME=$(git log -1 --pretty=format:'%an')" >> $GITHUB_ENV
+
       - name: Send success message to Telegram
         if: success()
         run: |
           curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
                -F document=@$(pwd)/build/app/outputs/flutter-apk/app-release.apk \
-               -F caption="🎉 New Build Available! ✅ Download the APK with the above sent file." \
+               -F caption="🎉 New Build Available! ✅ Commited By : ${{ env.COMMITTER_NAME }} . Download the file and test it." \
                https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}

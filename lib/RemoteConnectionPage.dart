@@ -644,7 +644,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                         .size
                         .width / 5) - 16,
                     onPressed: isConnected ? () => presentCurrent() : null,
-                    tooltip: 'Present from current slide',
+                    tooltip: 'Keyboard',
                   ),
                   IconButton(
                     icon: const Icon(Icons.chevron_left),
