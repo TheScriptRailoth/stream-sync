@@ -12,7 +12,7 @@
 
     <application
         android:label="stream_sync"
-        android:name="${applicationName}"
+        android:name="StreamSync"
         android:icon="@mipmap/ic_launcher">
         tools:replace="android:label, android:icon">
         <activity
