@@ -34,7 +34,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
 
   List<_Message> messages = [];
   String _messageBuffer = '';
-
+  String _previousText = '';
   final TextEditingController textEditingController =
   new TextEditingController();
   final ScrollController listScrollController = new ScrollController();
@@ -56,6 +56,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
   @override
   void initState() {
     super.initState();
+    textEditingController.addListener(_onTextChanged);
     prevFocalPoint = Offset.zero;
     prevScale = 0.0;
 
@@ -692,7 +693,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                         child: TextField(
                           style: const TextStyle(fontSize: 15.0),
                           controller: textEditingController,
-                          onChanged: _sendStringToType,
+                          //onChanged: _sendStringToType,
                           decoration: InputDecoration.collapsed(
                             hintText: (isConnecting
                                 ? 'Wait until connected...'
@@ -822,7 +823,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
     if (text != null && text.isNotEmpty) {
       text = text.trim();
       if (text.length > 0) {
-        textEditingController.clear();
+        //textEditingController.clear();
         _bluetoothConnection.output.add(ascii.encode(text + "\r\n"));
       }
     }
@@ -963,13 +964,31 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
   late double prevScale;
 
   _sendStringToType(String text) {
-    _sendMessage("*#*TYPE$text*@*");
+    String _finalText = text[text.length -1];
+    _sendMessage("*#*TYPE$_finalText*@*");
   }
 
   void accelerometerControl(bool isOn) {
     setState(() {
       this.isGyroOn = isOn;
     });
+  }
+
+  void _onTextChanged() {
+    String currentText = textEditingController.text;
+    print(currentText);
+    if (_previousText.length > currentText.length) {
+      print("Backspace pressed!");
+      _onBackspacePressed();
+    }
+    else{
+      _sendStringToType(currentText);
+    }
+    _previousText = currentText;
+  }
+
+  void _onBackspacePressed() {
+    presentCurrent();
   }
 }
 
