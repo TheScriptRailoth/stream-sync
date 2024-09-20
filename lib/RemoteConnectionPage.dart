@@ -699,7 +699,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                 ? 'Wait until connected...'
                                 : isConnected
                                 ? 'Type on PC...'
-                                : 'BT got disconnected'),
+                                : 'Bluetooth got disconnected'),
                             hintStyle: const TextStyle(color: Colors.grey),
                           ),
                           enabled: isConnected,
