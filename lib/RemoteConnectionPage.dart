@@ -693,7 +693,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                         child: TextField(
                           style: const TextStyle(fontSize: 15.0),
                           controller: textEditingController,
-                          //onChanged: _sendStringToType,
+
                           decoration: InputDecoration.collapsed(
                             hintText: (isConnecting
                                 ? 'Wait until connected...'
@@ -702,6 +702,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                 : 'BT got disconnected'),
                             hintStyle: const TextStyle(color: Colors.grey),
                           ),
+                          onSubmitted:submit ,
                           enabled: isConnected,
                         ))),
                 Container(
@@ -744,6 +745,10 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
     _sendMessage("#enter#@");
   }
 
+  void submit(String value) {
+    _sendMessage("#enter#@");
+    textEditingController.clear();
+  }
   void exit() {
     _sendMessage("*#*esc*@*");
   }
