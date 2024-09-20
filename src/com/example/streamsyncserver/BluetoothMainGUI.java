@@ -1,4 +1,4 @@
-package com.ganesh.apps.remotebluetooth;
+package com.example.streamsyncserver;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

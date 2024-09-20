@@ -1,4 +1,4 @@
-package com.ganesh.apps.remotebluetooth;
+package com.example.streamsyncserver;
 
 import java.io.IOException;
 
