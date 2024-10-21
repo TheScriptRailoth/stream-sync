@@ -8,7 +8,6 @@ import 'package:holding_gesture/holding_gesture.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:vibration/vibration.dart';
 import 'dart:convert';
-import 'package:ionicons/ionicons.dart  ';
 
 class RemoteConnectionPage extends StatefulWidget {
   final BluetoothDevice server;
@@ -189,13 +188,13 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
           actions: <Widget>[
             IconButton(
               icon: const Icon(
-                Ionicons.refresh_circle_outline,
+                Icons.refresh_rounded,
                 color: Colors.white,
               ),
               onPressed: () => close(),
             ),
             IconButton(
-              icon: const Icon(Ionicons.close_circle_outline,
+              icon: const Icon(Icons.close_rounded,
                     color: Colors.white),
               onPressed: isConnected ? null : () => connectToBluetooth(),
             ),
@@ -227,15 +226,15 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               _buildCircularButton(
-                                icon: Ionicons.volume_mute,
+                                icon: Icons.volume_mute,
                                 onPressed: () => muteVolume(),
                               ),
                               _buildCircularButton(
-                                icon: Ionicons.volume_low,
+                                icon: Icons.volume_down,
                                 onPressed: () => decreaseVol(),
                               ),
                               _buildCircularButton(
-                                icon: Ionicons.volume_high,
+                                icon: Icons.volume_up,
                                 onPressed: () => increaseVol(),
                               ),
                               _buildCircularButton(
@@ -342,7 +341,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                           delta: Offset(0.0, -1.0),
                                           globalPosition: Offset(0, 0))),
                                   icon: Icon(
-                                    Ionicons.caret_up_outline,
+                                    Icons.keyboard_arrow_up,
                                         color: Colors.white,
                                   ),
                                   iconSize: 20,
@@ -361,7 +360,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                           delta: Offset(0.0, 1.0),
                                           globalPosition: Offset(0, 0))),
                                   icon: Icon(
-                                    Ionicons.caret_down_outline,
+                                    Icons.keyboard_arrow_down,
                                         color: Colors.white,
                                   ),
                                   iconSize: 20,
@@ -388,7 +387,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                 children: <Widget>[
                   IconButton(
                     icon: const Icon(
-                          Ionicons.arrow_back,
+                          Icons.arrow_back,
                           color: Color(0xff00416a),
                         ),
                     iconSize: (MediaQuery
@@ -400,7 +399,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                   ),
                   IconButton(
                     icon: const Icon(
-                          Ionicons.backspace,
+                          Icons.backspace,
                           color: Color(0xff00416a),
                         ),
                     iconSize: (MediaQuery
@@ -412,7 +411,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                   ),
                   IconButton(
                     icon: const Icon(
-                          Ionicons.return_up_back,
+                          Icons.arrow_back_ios,
                           color: Color(0xff00416a),
                         ),
                     iconSize: (MediaQuery
@@ -423,7 +422,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                     tooltip: 'Next',
                   ),
                   IconButton(
-                    icon: const Icon(Ionicons.return_up_forward,
+                    icon: const Icon(Icons.arrow_forward_ios,
                             color: Color(0xff00416a)),
                     iconSize: (MediaQuery
                         .of(context)
@@ -434,7 +433,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                   ),
                   IconButton(
                     icon: const Icon(
-                          Ionicons.close,
+                          Icons.close,
                           color: Color(0xff00416a),
                         ),
                     iconSize: (MediaQuery
@@ -479,7 +478,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                 Container(
                   margin: const EdgeInsets.all(8.0),
                   child: IconButton(
-                      icon: const Icon(Ionicons.send),
+                      icon: const Icon(Icons.send),
                       onPressed: isConnected
                           ? () => _sendStringToType(textEditingController.text)
                           : null
