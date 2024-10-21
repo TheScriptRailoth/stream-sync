@@ -45,7 +45,6 @@ dependencies:
   control_pad_plus: ^0.1.0
   device_info_plus: ^10.1.2
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'package:control_pad_plus/views/joystick_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
@@ -189,15 +188,15 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
           actions: <Widget>[
             IconButton(
               icon: const Icon(
-                CupertinoIcons.refresh_circled,
+                Icons.refresh_rounded,
                 color: Colors.white,
               ),
-              onPressed: isConnected ? null : () => connectToBluetooth(),
+              onPressed: () => close(),
             ),
             IconButton(
-              icon: const Icon(CupertinoIcons.clear_circled,
+              icon: const Icon(Icons.close_rounded,
                     color: Colors.white),
-              onPressed: () => close(),
+              onPressed: isConnected ? null : () => connectToBluetooth(),
             ),
           ],
         ),
@@ -227,15 +226,15 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               _buildCircularButton(
-                                icon: CupertinoIcons.volume_off,
+                                icon: Icons.volume_mute,
                                 onPressed: () => muteVolume(),
                               ),
                               _buildCircularButton(
-                                icon: CupertinoIcons.volume_down,
+                                icon: Icons.volume_down,
                                 onPressed: () => decreaseVol(),
                               ),
                               _buildCircularButton(
-                                icon: CupertinoIcons.volume_up,
+                                icon: Icons.volume_up,
                                 onPressed: () => increaseVol(),
                               ),
                               _buildCircularButton(
@@ -342,7 +341,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                           delta: Offset(0.0, -1.0),
                                           globalPosition: Offset(0, 0))),
                                   icon: Icon(
-                                    CupertinoIcons.chevron_up,
+                                    Icons.keyboard_arrow_up,
                                         color: Colors.white,
                                   ),
                                   iconSize: 20,
@@ -361,7 +360,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                           delta: Offset(0.0, 1.0),
                                           globalPosition: Offset(0, 0))),
                                   icon: Icon(
-                                    CupertinoIcons.chevron_down,
+                                    Icons.keyboard_arrow_down,
                                         color: Colors.white,
                                   ),
                                   iconSize: 20,
@@ -388,7 +387,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                 children: <Widget>[
                   IconButton(
                     icon: const Icon(
-                          CupertinoIcons.arrow_left_square_fill,
+                          Icons.arrow_back,
                           color: Color(0xff00416a),
                         ),
                     iconSize: (MediaQuery
@@ -400,7 +399,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                   ),
                   IconButton(
                     icon: const Icon(
-                          CupertinoIcons.delete_left_fill,
+                          Icons.backspace,
                           color: Color(0xff00416a),
                         ),
                     iconSize: (MediaQuery
@@ -412,7 +411,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                   ),
                   IconButton(
                     icon: const Icon(
-                          CupertinoIcons.arrow_left,
+                          Icons.arrow_back_ios,
                           color: Color(0xff00416a),
                         ),
                     iconSize: (MediaQuery
@@ -423,7 +422,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                     tooltip: 'Next',
                   ),
                   IconButton(
-                    icon: const Icon(CupertinoIcons.arrow_right,
+                    icon: const Icon(Icons.arrow_forward_ios,
                             color: Color(0xff00416a)),
                     iconSize: (MediaQuery
                         .of(context)
@@ -434,7 +433,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                   ),
                   IconButton(
                     icon: const Icon(
-                          CupertinoIcons.escape,
+                          Icons.close,
                           color: Color(0xff00416a),
                         ),
                     iconSize: (MediaQuery
@@ -476,7 +475,15 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                           onSubmitted:submit ,
                           enabled: isConnected,
                         ))),
-
+                Container(
+                  margin: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                      icon: const Icon(Icons.send),
+                      onPressed: isConnected
+                          ? () => _sendStringToType(textEditingController.text)
+                          : null
+                          ),
+                ),
               ],
               ),
             ]

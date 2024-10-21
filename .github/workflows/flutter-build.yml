@@ -26,7 +26,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17' 
+          java-version: '17'
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
@@ -84,7 +84,7 @@ jobs:
           echo "Commit Message: ${{ env.COMMIT_MESSAGE }}"
           curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
                -F document=@$(pwd)/build/app/outputs/flutter-apk/app-release.apk \
-               -F caption="🎉 New Build Available! ✅ Commited By: ${{ env.COMMITTER_NAME }}  📝 Commit Message: ${{ env.COMMIT_MESSAGE }}. Download the file and test it." \
+               -F caption="🎉 New Build Available! ✅ Commited By: ${{ env.COMMITTER_NAME }}\n📝 Commit Message: ${{ env.COMMIT_MESSAGE }}. Download the file and test it." \
                https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument
 
         env:
@@ -95,7 +95,7 @@ jobs:
         if: failure()
         run: |
           curl -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-               -F text="⚠️ Build Failed! 🛑 Commited By: ${{ env.COMMITTER_NAME }}  📝 Commit Message: ${{ env.COMMIT_MESSAGE }}. Please check the logs for more details." \
+               -F text="⚠️ Build Failed! 🛑 Commited By: ${{ env.COMMITTER_NAME }}\n📝 Commit Message: ${{ env.COMMIT_MESSAGE }}. Please check the logs for more details." \
                https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
