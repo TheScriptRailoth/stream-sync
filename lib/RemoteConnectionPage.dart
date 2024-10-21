@@ -188,13 +188,13 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
           actions: <Widget>[
             IconButton(
               icon: const Icon(
-                Icons.refresh_rounded,
+                Icons.refresh_outlined,
                 color: Colors.white,
               ),
               onPressed: () => close(),
             ),
             IconButton(
-              icon: const Icon(Icons.close_rounded,
+              icon: const Icon(Icons.close,
                     color: Colors.white),
               onPressed: isConnected ? null : () => connectToBluetooth(),
             ),
@@ -341,7 +341,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                           delta: Offset(0.0, -1.0),
                                           globalPosition: Offset(0, 0))),
                                   icon: Icon(
-                                    Icons.keyboard_arrow_up,
+                                    Icons.keyboard_arrow_down,
                                         color: Colors.white,
                                   ),
                                   iconSize: 20,
@@ -360,7 +360,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                           delta: Offset(0.0, 1.0),
                                           globalPosition: Offset(0, 0))),
                                   icon: Icon(
-                                    Icons.keyboard_arrow_down,
+                                    Icons.keyboard_arrow_up,
                                         color: Colors.white,
                                   ),
                                   iconSize: 20,
@@ -387,7 +387,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                 children: <Widget>[
                   IconButton(
                     icon: const Icon(
-                          Icons.arrow_back,
+                          Icons.double_arrow,
                           color: Color(0xff00416a),
                         ),
                     iconSize: (MediaQuery
@@ -399,7 +399,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                   ),
                   IconButton(
                     icon: const Icon(
-                          Icons.backspace,
+                          Icons.backspace_outlined,
                           color: Color(0xff00416a),
                         ),
                     iconSize: (MediaQuery
@@ -411,7 +411,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                   ),
                   IconButton(
                     icon: const Icon(
-                          Icons.arrow_back_ios,
+                          Icons.arrow_back_rounded,
                           color: Color(0xff00416a),
                         ),
                     iconSize: (MediaQuery
@@ -422,7 +422,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                     tooltip: 'Next',
                   ),
                   IconButton(
-                    icon: const Icon(Icons.arrow_forward_ios,
+                    icon: const Icon(Icons.arrow_forward_rounded,
                             color: Color(0xff00416a)),
                     iconSize: (MediaQuery
                         .of(context)
@@ -433,7 +433,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                   ),
                   IconButton(
                     icon: const Icon(
-                          Icons.close,
+                          Icons.close_sharp,
                           color: Color(0xff00416a),
                         ),
                     iconSize: (MediaQuery
@@ -475,15 +475,15 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                           onSubmitted:submit ,
                           enabled: isConnected,
                         ))),
-                Container(
-                  margin: const EdgeInsets.all(8.0),
-                  child: IconButton(
-                      icon: const Icon(Icons.send),
-                      onPressed: isConnected
-                          ? () => _sendStringToType(textEditingController.text)
-                          : null
-                          ),
-                ),
+                // Container(
+                //   margin: const EdgeInsets.all(8.0),
+                //   child: IconButton(
+                //       icon: const Icon(Ionicons.send),
+                //       onPressed: isConnected
+                //           ? () => _sendStringToType(textEditingController.text)
+                //           : null
+                //           ),
+                // ),
               ],
               ),
             ]
@@ -707,7 +707,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
       return;
     }
 
-
+    // Adjust the focal point calculations to be relative to the previous focal point
     double deltaX = dragUpdate.focalPoint.dx - prevFocalPoint.dx;
     double deltaY = dragUpdate.focalPoint.dy - prevFocalPoint.dy;
 
