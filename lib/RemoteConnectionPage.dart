@@ -182,7 +182,8 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
               ? 'Connecting to ${widget.server.name}...'
               : isConnected
               ? 'Connected with ${widget.server.name}'
-              : 'Disconnected'),
+              : 'Disconnected',
+              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),),
           centerTitle: true,
           backgroundColor: const Color(0xff00416a),
           actions: <Widget>[
@@ -220,273 +221,38 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                       behavior: HitTestBehavior.translucent,
                       onVerticalDragUpdate: (dragUpdate) => zoom(dragUpdate),
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 8.0),
-                        child: Container(
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width * (1 / 6),
-                          height: MediaQuery
-                              .of(context)
-                              .size
-                              .height - 40,
-                          // color: Colors.red,
+                        padding: const EdgeInsets.fromLTRB(0, 5.0, 0, 8.0),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               _buildCircularButton(
-                  icon: Ionicons.volume_mute,
-                  onPressed: () => muteVolume(),
-                ),
-                _buildCircularButton(
-                  icon: Ionicons.volume_low,
-                  onPressed: () => decreaseVol(),
-                ),
-                _buildCircularButton(
-                  icon: Ionicons.volume_high,
-                  onPressed: () => increaseVol(),
-                ),
-                _buildCircularButton(
-                  icon: Icons.zoom_in,
-                  onPressed: () => zoomIn(),
-                ),
-                _buildCircularButton(
-                  icon: Icons.zoom_out,
-                  onPressed: () => zoomOut(),
-                ),
-              ],
-          ),
-        ),
-      ),
+                                icon: Ionicons.volume_mute,
+                                onPressed: () => muteVolume(),
+                              ),
+                              _buildCircularButton(
+                                icon: Ionicons.volume_low,
+                                onPressed: () => decreaseVol(),
+                              ),
+                              _buildCircularButton(
+                                icon: Ionicons.volume_high,
+                                onPressed: () => increaseVol(),
+                              ),
+                              _buildCircularButton(
+                                icon: Icons.zoom_in,
+                                onPressed: () => zoomIn(),
+                              ),
+                              _buildCircularButton(
+                                icon: Icons.zoom_out,
+                                onPressed: () => zoomOut(),
+                              ),
+                        ],
                     ),
-
-                          //     Container(
-                          //       height: MediaQuery.of(context).size.height*(1/12),
-                          //       width: MediaQuery.sizeOf(context).width * (1/6),
-                          //       decoration: BoxDecoration(
-                          //         borderRadius: BorderRadius.circular(10.0),
-                          //         gradient: LinearGradient(
-                          //           begin: Alignment.bottomRight,
-                          //           end: Alignment.topLeft,
-                          //           stops: [0.1, 0.5, 0.7, 0.9],
-                          //           colors: [
-                          //             Color.fromARGB(255, 238, 112, 2),
-                          //             Color.fromARGB(220, 238, 112, 2),
-                          //             Color.fromARGB(200, 238, 112, 2),
-                          //             Color.fromARGB(150, 238, 112, 2),
-                          //           ],
-                          //         ),
-                          //       ),
-                          //       child: GestureDetector(
-                          //         // onHold: () =>
-                          //         //     zoom(DragUpdateDetails(
-                          //         //         delta: Offset(0.0, -1.0),
-                          //         //         globalPosition: Offset(0, 0))),
-                          //         // holdTimeout: Duration(milliseconds: 200),
-                          //         // enableHapticFeedback: true,
-                          //         child: IconButton(
-                          //           onPressed: ()=> increaseVol(),
-                          //           icon: Icon(
-                          //             Icons.volume_up_outlined,
-                          //             color: Colors.white,
-                          //           ),
-                          //           iconSize: 50,
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     Container(
-                          //       height: MediaQuery.of(context).size.height*(1/12),
-                          //       width: MediaQuery.sizeOf(context).width * (1/6),
-                          //       decoration: BoxDecoration(
-                          //         borderRadius: BorderRadius.circular(10.0),
-                          //         gradient: LinearGradient(
-                          //           begin: Alignment.bottomRight,
-                          //           end: Alignment.topLeft,
-                          //           stops: [0.1, 0.5, 0.7, 0.9],
-                          //           colors: [
-                          //             Color.fromARGB(255, 238, 112, 2),
-                          //             Color.fromARGB(220, 238, 112, 2),
-                          //             Color.fromARGB(200, 238, 112, 2),
-                          //             Color.fromARGB(150, 238, 112, 2),
-                          //           ],
-                          //         ),
-                          //       ),
-                          //       child: GestureDetector(
-                          //         // onHold: () =>
-                          //         //     zoom(DragUpdateDetails(
-                          //         //         delta: Offset(0.0, -1.0),
-                          //         //         globalPosition: Offset(0, 0))),
-                          //         // holdTimeout: Duration(milliseconds: 200),
-                          //         // enableHapticFeedback: true,
-                          //         child: IconButton(
-                          //           onPressed: ()=> decreaseVol(),
-                          //           icon: const Icon(
-                          //             Icons.volume_down_outlined,
-                          //             color: Colors.white,
-                          //           ),
-                          //           iconSize: 50,
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     Container(
-                          //       height: MediaQuery.of(context).size.height*(1/12),
-                          //       width: MediaQuery.sizeOf(context).width * (1/6),
-                          //       decoration: BoxDecoration(
-                          //         borderRadius: BorderRadius.circular(10.0),
-                          //         gradient: const LinearGradient(
-                          //           begin: Alignment.bottomRight,
-                          //           end: Alignment.topLeft,
-                          //           stops: [0.1, 0.5, 0.7, 0.9],
-                          //           colors: [
-                          //             Color.fromARGB(255, 238, 112, 2),
-                          //             Color.fromARGB(220, 238, 112, 2),
-                          //             Color.fromARGB(200, 238, 112, 2),
-                          //             Color.fromARGB(150, 238, 112, 2),
-                          //           ],
-                          //         ),
-                          //       ),
-                          //       child: GestureDetector(
-                          //         // onHold: () =>
-                          //         //     zoom(DragUpdateDetails(
-                          //         //         delta: Offset(0.0, -1.0),
-                          //         //         globalPosition: Offset(0, 0))),
-                          //         // holdTimeout: Duration(milliseconds: 200),
-                          //         // enableHapticFeedback: true,
-                          //         child: IconButton(
-                          //           onPressed: ()=> muteVolume(),
-                          //           icon: const Icon(
-                          //             Icons.volume_off,
-                          //             color: Colors.white,
-                          //             size: 24,
-                          //           ),
-                          //           iconSize: 50,
-                          //         ),
-                          //       ),
-                          //     ),
-
-                          //     Container(
-                          //       height: MediaQuery.of(context).size.height*(1/12),
-                          //       width: MediaQuery.sizeOf(context).width * (1/6),
-                          //       decoration: BoxDecoration(
-                          //         borderRadius: BorderRadius.circular(10.0),
-                          //         gradient: const LinearGradient(
-                          //           begin: Alignment.bottomRight,
-                          //           end: Alignment.topLeft,
-                          //           stops: [0.1, 0.5, 0.7, 0.9],
-                          //           colors: [
-                          //             Color.fromARGB(255, 238, 112, 2),
-                          //             Color.fromARGB(220, 238, 112, 2),
-                          //             Color.fromARGB(200, 238, 112, 2),
-                          //             Color.fromARGB(150, 238, 112, 2),
-                          //           ],
-                          //         ),
-                          //       ),
-                          //       child: HoldDetector(
-                          //         onHold: () {
-
-                          //         },
-                          //         //     zoom(DragUpdateDetails(
-                          //         //         delta: Offset(0.0, -1.0),
-                          //         //         globalPosition: Offset(0, 0))),
-                          //         // holdTimeout: Duration(milliseconds: 200),
-                          //         // enableHapticFeedback: true,
-                          //         child: IconButton(
-                          //           onPressed: () =>  zoomIn(),
-
-                          //           // onPressed: () =>
-                          //           //     zoom(DragUpdateDetails(
-                          //           //         delta: Offset(0.0, -1.0),
-                          //           //         globalPosition: Offset(0, 0))),
-                          //           icon: Icon(
-                          //             Icons.zoom_in,
-                          //             color: Colors.white,
-                          //           ),
-                          //           iconSize: 50,
-                          //         ),
-                          //       ),
-                          //     ),
-
-                          //     Container(
-
-                          //       height: MediaQuery.of(context).size.height*(1/12),
-                          //       width: MediaQuery.sizeOf(context).width * (1/6),
-                          //       decoration: BoxDecoration(
-                          //         borderRadius: BorderRadius.circular(10.0),
-                          //         gradient: LinearGradient(
-                          //           begin: Alignment.bottomRight,
-                          //           end: Alignment.topLeft,
-                          //           stops: [0.1, 0.5, 0.7, 0.9],
-                          //           colors: [
-                          //             Color.fromARGB(255, 238, 112, 2),
-                          //             Color.fromARGB(220, 238, 112, 2),
-                          //             Color.fromARGB(200, 238, 112, 2),
-                          //             Color.fromARGB(150, 238, 112, 2),
-                          //           ],
-                          //         ),
-                          //       ),
-
-
-                          //       child: HoldDetector(
-                          //         onHold: () {},
-                          //         //     zoom(DragUpdateDetails(
-                          //         //         delta: Offset(0.0, 1.0),
-                          //         //         globalPosition: Offset(0, 0))),
-                          //         // holdTimeout: Duration(milliseconds: 200),
-                          //         //enableHapticFeedback: true,
-                          //         child: IconButton(
-                          //         onPressed: () => zoomOut(),
-                          //           // onPressed: () =>
-                          //           //     zoom(DragUpdateDetails(
-                          //           //         delta: Offset(0.0, 1.0),
-                          //           //         globalPosition: Offset(0, 0))),
-                          //           icon: Icon(
-                          //             Icons.zoom_out,
-                          //             color: Colors.white,
-                          //           ),
-                          //           iconSize: 50,
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
-                          // Align(
-                          //   alignment: Alignment.center,
-                          //   child: RotatedBox(
-                          //     quarterTurns: 3,
-                          //     child: Text(
-                          //       'ZOOM',
-                          //       style: TextStyle(
-                          //         color: Colors.white,
-                          //         fontSize: 50,
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-
-
-
-                    //       decoration: BoxDecoration(
-                    //         borderRadius: BorderRadius.circular(10.0),
-                    //         gradient: LinearGradient(
-                    //           begin: Alignment.bottomRight,
-                    //           end: Alignment.topLeft,
-                    //           stops: [0.1, 0.5, 0.7, 0.9],
-                    //           colors: [
-                    //             Color.fromARGB(255, 238, 112, 2),
-                    //             Color.fromARGB(220, 238, 112, 2),
-                    //             Color.fromARGB(200, 238, 112, 2),
-                    //             Color.fromARGB(150, 238, 112, 2),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-
-                    Expanded(
+              ),
+            ),
+            Expanded(
               child:
-            Row(
+             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                     isGyroOn
@@ -602,19 +368,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                 ),
                               ),
                             ],
-                          ), // child: Align(
-                          //   alignment: Alignment.center,
-                          //   child: RotatedBox(
-                          //     quarterTurns: 3,
-                          //     child: Text(
-                          //       'SCROLL',
-                          //       style: TextStyle(
-                          //         color: Colors.white,
-                          //         fontSize: 50,
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
+                          ), 
                         ),
                       ),
                     ),
@@ -630,6 +384,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
               //   )
               // ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   IconButton(
                     icon: const Icon(
@@ -639,7 +394,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                     iconSize: (MediaQuery
                         .of(context)
                         .size
-                        .width / 5) - 16,
+                        .width / 5) - 60,
                     onPressed: isConnected ? () => present() : null,
                     tooltip: 'Back',
                   ),
@@ -651,7 +406,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                     iconSize: (MediaQuery
                         .of(context)
                         .size
-                        .width / 5) - 16,
+                        .width / 5) - 60,
                     onPressed: isConnected ? () => presentCurrent() : null,
                     tooltip: 'Backspace',
                   ),
@@ -663,7 +418,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                     iconSize: (MediaQuery
                         .of(context)
                         .size
-                        .width / 5) - 16,
+                        .width / 5) - 60,
                     onPressed: isConnected ? () => goLeft() : null,
                     tooltip: 'Next',
                   ),
@@ -673,7 +428,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                     iconSize: (MediaQuery
                         .of(context)
                         .size
-                        .width / 5) - 16,
+                        .width / 5) - 60,
                     onPressed: isConnected ? () => goRight() : null,
                     tooltip: 'Previous',
                   ),
@@ -685,7 +440,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                     iconSize: (MediaQuery
                         .of(context)
                         .size
-                        .width / 5) - 16,
+                        .width / 5) - 60,
                     onPressed: isConnected ? () => exit() : null,
                     tooltip: 'Exit',
                   ),
@@ -727,16 +482,18 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                       icon: const Icon(Ionicons.send),
                       onPressed: isConnected
                           ? () => _sendStringToType(textEditingController.text)
-                          : null),
+                          : null
+                          ),
                 ),
-              ])
+              ],
+              ),
             ]
             )
             )
             ]
             )
-            )
-            );      
+        )
+    ); 
   }
 // @override
   Widget _buildCircularButton(
@@ -1025,21 +782,26 @@ class TouchArea extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        width: MediaQuery.of(context).size.width * (4 / 6) - 16,
-        height: MediaQuery.of(context).size.height - 40,
+        width: MediaQuery.of(context).size.width * (4 / 6) - 25,
+        height: MediaQuery.of(context).size.height - 100,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
+          // gradient: SweepGradient(
+          //   center: Alignment(dx, dy),
+          //   tileMode: TileMode.repeated,
+          //   colors: [
+          //     Color.fromARGB(150, 2, 130, 238),
+          //     Color.fromARGB(220, 2, 130, 238),
+          //     Color.fromARGB(255, 2, 130, 238),
+          //     Color.fromARGB(220, 2, 130, 238),
+          //     Color.fromARGB(150, 2, 130, 238),
+          //   ],
+          // ),
           gradient: SweepGradient(
-            center: Alignment(dx, dy),
-            tileMode: TileMode.repeated,
-            colors: [
-              Color.fromARGB(150, 2, 130, 238),
-              Color.fromARGB(220, 2, 130, 238),
-              Color.fromARGB(255, 2, 130, 238),
-              Color.fromARGB(220, 2, 130, 238),
-              Color.fromARGB(150, 2, 130, 238),
-            ],
-          ),
+              colors: [Color(0xff00416a), Color(0xffe4e5e6)],
+              stops: [0, 1],
+              center: Alignment.center,
+            )
         ),
       ),
     );
