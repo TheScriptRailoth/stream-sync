@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'package:control_pad_plus/views/joystick_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
@@ -8,7 +9,6 @@ import 'package:holding_gesture/holding_gesture.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:vibration/vibration.dart';
 import 'dart:convert';
-import 'package:ionicons/ionicons.dart  ';
 
 class RemoteConnectionPage extends StatefulWidget {
   final BluetoothDevice server;
@@ -189,15 +189,15 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
           actions: <Widget>[
             IconButton(
               icon: const Icon(
-                Ionicons.refresh_circle_outline,
+                CupertinoIcons.refresh_circled,
                 color: Colors.white,
               ),
-              onPressed: () => close(),
+              onPressed: isConnected ? null : () => connectToBluetooth(),
             ),
             IconButton(
-              icon: const Icon(Ionicons.close_circle_outline,
+              icon: const Icon(CupertinoIcons.clear_circled,
                     color: Colors.white),
-              onPressed: isConnected ? null : () => connectToBluetooth(),
+              onPressed: () => close(),
             ),
           ],
         ),
@@ -227,15 +227,15 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               _buildCircularButton(
-                                icon: Ionicons.volume_mute,
+                                icon: CupertinoIcons.volume_off,
                                 onPressed: () => muteVolume(),
                               ),
                               _buildCircularButton(
-                                icon: Ionicons.volume_low,
+                                icon: CupertinoIcons.volume_down,
                                 onPressed: () => decreaseVol(),
                               ),
                               _buildCircularButton(
-                                icon: Ionicons.volume_high,
+                                icon: CupertinoIcons.volume_up,
                                 onPressed: () => increaseVol(),
                               ),
                               _buildCircularButton(
@@ -342,7 +342,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                           delta: Offset(0.0, -1.0),
                                           globalPosition: Offset(0, 0))),
                                   icon: Icon(
-                                    Ionicons.caret_up_outline,
+                                    CupertinoIcons.chevron_up,
                                         color: Colors.white,
                                   ),
                                   iconSize: 20,
@@ -361,7 +361,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                           delta: Offset(0.0, 1.0),
                                           globalPosition: Offset(0, 0))),
                                   icon: Icon(
-                                    Ionicons.caret_down_outline,
+                                    CupertinoIcons.chevron_down,
                                         color: Colors.white,
                                   ),
                                   iconSize: 20,
@@ -388,7 +388,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                 children: <Widget>[
                   IconButton(
                     icon: const Icon(
-                          Ionicons.arrow_back,
+                          CupertinoIcons.arrow_left_square_fill,
                           color: Color(0xff00416a),
                         ),
                     iconSize: (MediaQuery
@@ -400,7 +400,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                   ),
                   IconButton(
                     icon: const Icon(
-                          Ionicons.backspace,
+                          CupertinoIcons.delete_left_fill,
                           color: Color(0xff00416a),
                         ),
                     iconSize: (MediaQuery
@@ -412,7 +412,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                   ),
                   IconButton(
                     icon: const Icon(
-                          Ionicons.return_up_back,
+                          CupertinoIcons.arrow_left,
                           color: Color(0xff00416a),
                         ),
                     iconSize: (MediaQuery
@@ -423,7 +423,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                     tooltip: 'Next',
                   ),
                   IconButton(
-                    icon: const Icon(Ionicons.return_up_forward,
+                    icon: const Icon(CupertinoIcons.arrow_right,
                             color: Color(0xff00416a)),
                     iconSize: (MediaQuery
                         .of(context)
@@ -434,7 +434,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                   ),
                   IconButton(
                     icon: const Icon(
-                          Ionicons.close,
+                          CupertinoIcons.escape,
                           color: Color(0xff00416a),
                         ),
                     iconSize: (MediaQuery
@@ -476,15 +476,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                           onSubmitted:submit ,
                           enabled: isConnected,
                         ))),
-                Container(
-                  margin: const EdgeInsets.all(8.0),
-                  child: IconButton(
-                      icon: const Icon(Ionicons.send),
-                      onPressed: isConnected
-                          ? () => _sendStringToType(textEditingController.text)
-                          : null
-                          ),
-                ),
+
               ],
               ),
             ]
