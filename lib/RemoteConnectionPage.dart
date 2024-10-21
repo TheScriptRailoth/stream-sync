@@ -708,7 +708,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
       return;
     }
 
-    // Adjust the focal point calculations to be relative to the previous focal point
+
     double deltaX = dragUpdate.focalPoint.dx - prevFocalPoint.dx;
     double deltaY = dragUpdate.focalPoint.dy - prevFocalPoint.dy;
 
