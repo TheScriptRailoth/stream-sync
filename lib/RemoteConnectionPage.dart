@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'package:control_pad_plus/views/joystick_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
@@ -26,7 +27,6 @@ class _Message {
 }
 
 class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
-
   static final clientID = 0;
   static final maxMessageLength = 4096 - 3;
 
@@ -36,7 +36,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
   String _messageBuffer = '';
   String _previousText = '';
   final TextEditingController textEditingController =
-  new TextEditingController();
+      new TextEditingController();
   final ScrollController listScrollController = new ScrollController();
 
   bool isConnecting = true;
@@ -61,7 +61,6 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
     prevScale = 0.0;
 
     accelerometerEvents.listen((event) {
-
       if (isGyroOn) {
         // print(event);
         _sendMessage('*#*Offset(${event.x * -1}, ${event.y * -1})*@*');
@@ -106,13 +105,12 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
     }
   }
 
-
   late BluetoothConnection _bluetoothConnection;
 
   connectToBluetooth() async {
     if (!isConnected) {
       _bluetoothConnection =
-      await BluetoothConnection.toAddress(widget.server.address);
+          await BluetoothConnection.toAddress(widget.server.address);
 
       isConnecting = false;
       this._bluetoothConnection = _bluetoothConnection;
@@ -156,7 +154,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
         children: <Widget>[
           Container(
             child: Text(
-                    (text) {
+                (text) {
                   return text == '/shrug' ? '¯\\_(ツ)_/¯' : text;
                 }(_message.text.trim()),
                 style: TextStyle(color: Colors.white)),
@@ -165,7 +163,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
             width: 222.0,
             decoration: BoxDecoration(
                 color:
-                _message.whom == clientID ? Colors.blueAccent : Colors.grey,
+                    _message.whom == clientID ? Colors.blueAccent : Colors.grey,
                 borderRadius: BorderRadius.circular(7.0)),
           ),
         ],
@@ -177,12 +175,14 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(isConnecting
-              ? 'Connecting to ${widget.server.name}...'
-              : isConnected
-              ? 'Connected with ${widget.server.name}'
-              : 'Disconnected',
-              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),),
+          title: Text(
+            isConnecting
+                ? 'Connecting to ${widget.server.name}...'
+                : isConnected
+                    ? 'Connected with ${widget.server.name}'
+                    : 'Disconnected',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          ),
           centerTitle: true,
           backgroundColor: const Color(0xff00416a),
           actions: <Widget>[
@@ -191,122 +191,112 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                 Icons.refresh_outlined,
                 color: Colors.white,
               ),
-              onPressed: () => close(),
-            ),
-            IconButton(
-              icon: const Icon(Icons.close,
-                    color: Colors.white),
               onPressed: isConnected ? null : () => connectToBluetooth(),
             ),
+            IconButton(
+              icon: const Icon(Icons.close, color: Colors.white),
+              onPressed: () => close(),
+            ),
           ],
+          foregroundColor: Colors.white,
         ),
         body: SafeArea(
             child: Column(children: <Widget>[
-              _isJoystick
-                  ? Container(
-                color: Colors.white,
-                child: JoystickView(
-                  interval: Duration(
-                    milliseconds: 50,
+          _isJoystick
+              ? Container(
+                  color: Colors.white,
+                  child: JoystickView(
+                    interval: Duration(
+                      milliseconds: 50,
+                    ),
+                    onDirectionChanged: (degrees, distance) =>
+                        directionChanged(degrees, distance),
                   ),
-                  onDirectionChanged: (degrees, distance) =>
-                      directionChanged(degrees, distance),
-                ),
-              )
-                  : Flexible(
-                child: Column(
-                  children: <Widget>[
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onVerticalDragUpdate: (dragUpdate) => zoom(dragUpdate),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 5.0, 0, 8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              _buildCircularButton(
-                                icon: Icons.volume_mute,
-                                onPressed: () => muteVolume(),
-                              ),
-                              _buildCircularButton(
-                                icon: Icons.volume_down,
-                                onPressed: () => decreaseVol(),
-                              ),
-                              _buildCircularButton(
-                                icon: Icons.volume_up,
-                                onPressed: () => increaseVol(),
-                              ),
-                              _buildCircularButton(
-                                icon: Icons.zoom_in,
-                                onPressed: () => zoomIn(),
-                              ),
-                              _buildCircularButton(
-                                icon: Icons.zoom_out,
-                                onPressed: () => zoomOut(),
-                              ),
+                )
+              : Flexible(
+                  child: Column(children: <Widget>[
+                  GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onVerticalDragUpdate: (dragUpdate) => zoom(dragUpdate),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 5.0, 0, 8.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          _buildCircularButton(
+                            icon: Icons.volume_mute,
+                            onPressed: () => muteVolume(),
+                          ),
+                          _buildCircularButton(
+                            icon: Icons.volume_down,
+                            onPressed: () => decreaseVol(),
+                          ),
+                          _buildCircularButton(
+                            icon: Icons.volume_up,
+                            onPressed: () => increaseVol(),
+                          ),
+                          _buildCircularButton(
+                            icon: Icons.zoom_in,
+                            onPressed: () => zoomIn(),
+                          ),
+                          _buildCircularButton(
+                            icon: Icons.zoom_out,
+                            onPressed: () => zoomOut(),
+                          ),
                         ],
-                    ),
-              ),
-            ),
-            Expanded(
-              child:
-             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                    isGyroOn
-                        ? HoldDetector(
-                      onHold: () =>
-                          setState(() {
-                            _onHold = true;
-                          }),
-                      onCancel: () =>
-                          setState(() {
-                            _onHold = false;
-                          }),
-                      onTap: () => leftClickMouse(),
-                      holdTimeout: Duration(milliseconds: 200),
-                      enableHapticFeedback: true,
-                      child: TouchArea(
-                        dx: dx,
-                        dy: dy,
-                      ),
-                    )
-                        : GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () => leftClickMouse(),
-                      onDoubleTap: () =>
-                      {
-                        doubleTapped = true,
-                        print('Double Tapped'),
-                      },
-                      // onPanUpdate: (dragUpdate) => onPan(dragUpdate),
-                      onScaleUpdate: _condition
-                          ? (dragUpdate) => onScale(dragUpdate)
-                          : null,
-                      onScaleEnd: (scaleEndDetails) => onScaleEnd(),
-                      child: TouchArea(
-                        dx: dx,
-                        dy: dy,
                       ),
                     ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onVerticalDragUpdate: (dragUpdate) =>
-                          scroll(dragUpdate),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 8.0),
-                        child: Container(
-                          width:
-                          MediaQuery
-                              .of(context)
-                              .size
-                              .width * (1 / 6) - 2,
-                          height: MediaQuery
-                              .of(context)
-                              .size
-                              .height - 40,
-                          decoration: BoxDecoration(
+                  ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        isGyroOn
+                            ? HoldDetector(
+                                onHold: () => setState(() {
+                                  _onHold = true;
+                                }),
+                                onCancel: () => setState(() {
+                                  _onHold = false;
+                                }),
+                                onTap: () => leftClickMouse(),
+                                holdTimeout: Duration(milliseconds: 200),
+                                enableHapticFeedback: true,
+                                child: TouchArea(
+                                  dx: dx,
+                                  dy: dy,
+                                ),
+                              )
+                            : GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                onTap: () => leftClickMouse(),
+                                onDoubleTap: () => {
+                                  doubleTapped = true,
+                                  print('Double Tapped'),
+                                },
+                                // onPanUpdate: (dragUpdate) => onPan(dragUpdate),
+                                onScaleUpdate: _condition
+                                    ? (dragUpdate) => onScale(dragUpdate)
+                                    : null,
+                                onScaleEnd: (scaleEndDetails) => onScaleEnd(),
+                                child: TouchArea(
+                                  dx: dx,
+                                  dy: dy,
+                                ),
+                              ),
+                        GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onVerticalDragUpdate: (dragUpdate) =>
+                              scroll(dragUpdate),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 8.0),
+                            child: Container(
+                              width:
+                                  MediaQuery.of(context).size.width * (1 / 6) -
+                                      2,
+                              height: MediaQuery.of(context).size.height - 40,
+                              decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
                                 gradient: const LinearGradient(
                                   begin: Alignment.bottomRight,
@@ -325,175 +315,159 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
                                   ],
                                 ),
                               ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              HoldDetector(
-                                onHold: () =>
-                                    scroll(DragUpdateDetails(
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  HoldDetector(
+                                    onHold: () => scroll(DragUpdateDetails(
                                         delta: Offset(0.0, -1.0),
                                         globalPosition: Offset(0, 0))),
-                                holdTimeout: Duration(milliseconds: 200),
-                                enableHapticFeedback: true,
-                                child: IconButton(
-                                  onPressed: () =>
-                                      scroll(DragUpdateDetails(
+                                    holdTimeout: Duration(milliseconds: 200),
+                                    enableHapticFeedback: true,
+                                    child: IconButton(
+                                      onPressed: () => scroll(DragUpdateDetails(
                                           delta: Offset(0.0, -1.0),
                                           globalPosition: Offset(0, 0))),
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
+                                      icon: Icon(
+                                        Icons.keyboard_arrow_down,
                                         color: Colors.white,
+                                      ),
+                                      iconSize: 20,
+                                    ),
                                   ),
-                                  iconSize: 20,
-                                ),
-                              ),
-                              HoldDetector(
-                                onHold: () =>
-                                    scroll(DragUpdateDetails(
+                                  HoldDetector(
+                                    onHold: () => scroll(DragUpdateDetails(
                                         delta: Offset(0.0, 1.0),
                                         globalPosition: Offset(0, 0))),
-                                holdTimeout: Duration(milliseconds: 200),
-                                enableHapticFeedback: true,
-                                child: IconButton(
-                                  onPressed: () =>
-                                      scroll(DragUpdateDetails(
+                                    holdTimeout: Duration(milliseconds: 200),
+                                    enableHapticFeedback: true,
+                                    child: IconButton(
+                                      onPressed: () => scroll(DragUpdateDetails(
                                           delta: Offset(0.0, 1.0),
                                           globalPosition: Offset(0, 0))),
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_up,
+                                      icon: Icon(
+                                        Icons.keyboard_arrow_up,
                                         color: Colors.white,
+                                      ),
+                                      iconSize: 20,
+                                    ),
                                   ),
-                                  iconSize: 20,
-                                ),
+                                ],
                               ),
-                            ],
-                          ), 
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              // Flexible(
-              //   child: ListView(
-              //     padding: const EdgeInsets.all(12.0),
-              //     controller: listScrollController,
-              //     children: list
-              //   )
-              // ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  IconButton(
-                    icon: const Icon(
-                          Icons.double_arrow,
-                          color: Color(0xff00416a),
-                        ),
-                    iconSize: (MediaQuery
-                        .of(context)
-                        .size
-                        .width / 5) - 60,
-                    onPressed: isConnected ? () => present() : null,
-                    tooltip: 'Back',
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                          Icons.backspace_outlined,
-                          color: Color(0xff00416a),
-                        ),
-                    iconSize: (MediaQuery
-                        .of(context)
-                        .size
-                        .width / 5) - 60,
-                    onPressed: isConnected ? () => presentCurrent() : null,
-                    tooltip: 'Backspace',
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                          Icons.arrow_back_rounded,
-                          color: Color(0xff00416a),
-                        ),
-                    iconSize: (MediaQuery
-                        .of(context)
-                        .size
-                        .width / 5) - 60,
-                    onPressed: isConnected ? () => goLeft() : null,
-                    tooltip: 'Next',
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.arrow_forward_rounded,
-                            color: Color(0xff00416a)),
-                    iconSize: (MediaQuery
-                        .of(context)
-                        .size
-                        .width / 5) - 60,
-                    onPressed: isConnected ? () => goRight() : null,
-                    tooltip: 'Previous',
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                          Icons.close_sharp,
-                          color: Color(0xff00416a),
-                        ),
-                    iconSize: (MediaQuery
-                        .of(context)
-                        .size
-                        .width / 5) - 60,
-                    onPressed: isConnected ? () => exit() : null,
-                    tooltip: 'Exit',
-                  ),
-                ],
-              ),
-              // Row(
-              //   children: <Widget>[
-              //     SwitchListTile(
-              //         onChanged: (isOn) => accelerometerControl(isOn), value: false)
-              //   ],
-              // ),
-
-              // SwitchListTile(
-              //     title: Text('Gyro'),
-              //     onChanged: (isOn) => accelerometerControl(isOn),
-              //     value: isGyroOn),
-              Row(children: <Widget>[
-                Flexible(
-                    child: Container(
-                        margin: const EdgeInsets.only(left: 16.0),
-                        child: TextField(
-                          style: const TextStyle(fontSize: 15.0),
-                          controller: textEditingController,
-
-                          decoration: InputDecoration.collapsed(
-                            hintText: (isConnecting
-                                ? 'Wait until connected...'
-                                : isConnected
-                                ? 'Type on PC...'
-                                : 'Bluetooth got disconnected'),
-                            hintStyle: const TextStyle(color: Colors.grey),
+                            ),
                           ),
-                          onSubmitted:submit ,
-                          enabled: isConnected,
-                        ))),
-                // Container(
-                //   margin: const EdgeInsets.all(8.0),
-                //   child: IconButton(
-                //       icon: const Icon(Ionicons.send),
-                //       onPressed: isConnected
-                //           ? () => _sendStringToType(textEditingController.text)
-                //           : null
-                //           ),
-                // ),
-              ],
-              ),
-            ]
-            )
-            )
-            ]
-            )
-        )
-    ); 
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+
+                  // Flexible(
+                  //   child: ListView(
+                  //     padding: const EdgeInsets.all(12.0),
+                  //     controller: listScrollController,
+                  //     children: list
+                  //   )
+                  // ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      IconButton(
+                        icon: const Icon(
+                          CupertinoIcons.arrow_left_square_fill,
+                          color: Color(0xff00416a),
+                        ),
+                        iconSize: (MediaQuery.of(context).size.width / 4) - 60,
+                        onPressed: isConnected ? () => present() : null,
+                        tooltip: 'Enter',
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.backspace_rounded,
+                          color: Color(0xff00416a),
+                        ),
+                        iconSize: (MediaQuery.of(context).size.width / 4) - 60,
+                        onPressed: isConnected ? () => presentCurrent() : null,
+                        tooltip: 'Backspace',
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          CupertinoIcons.arrow_left_to_line_alt,
+                          color: Color(0xff00416a),
+                        ),
+                        iconSize: (MediaQuery.of(context).size.width / 4) - 60,
+                        onPressed: isConnected ? () => goLeft() : null,
+                        tooltip: 'Next',
+                      ),
+                      IconButton(
+                        icon: const Icon(CupertinoIcons.arrow_right_to_line_alt,
+                            color: Color(0xff00416a)),
+                        iconSize: (MediaQuery.of(context).size.width / 4) - 60,
+                        onPressed: isConnected ? () => goRight() : null,
+                        tooltip: 'Previous',
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          CupertinoIcons.escape,
+                          color: Color(0xff00416a),
+                        ),
+                        iconSize: (MediaQuery.of(context).size.width / 4) - 60,
+                        onPressed: isConnected ? () => exit() : null,
+                        tooltip: 'Escape',
+                      ),
+                    ],
+                  ),
+                  // Row(
+                  //   children: <Widget>[
+                  //     SwitchListTile(
+                  //         onChanged: (isOn) => accelerometerControl(isOn), value: false)
+                  //   ],
+                  // ),
+
+                  // SwitchListTile(
+                  //     title: Text('Gyro'),
+                  //     onChanged: (isOn) => accelerometerControl(isOn),
+                  //     value: isGyroOn),
+                    SizedBox(height: 10,),
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                          child: Container(
+                              margin: const EdgeInsets.only(left: 16.0),
+                              child: TextField(
+                                style: const TextStyle(fontSize: 15.0),
+                                controller: textEditingController,
+                                decoration: InputDecoration.collapsed(
+                                  hintText: (isConnecting
+                                      ? 'Wait until connected...'
+                                      : isConnected
+                                          ? 'Type on PC...'
+                                          : 'Bluetooth got disconnected'),
+                                  hintStyle:
+                                      const TextStyle(color: Colors.grey),
+                                ),
+                                onSubmitted: submit,
+                                enabled: isConnected,
+                              ))),
+                      // Container(
+                      //   margin: const EdgeInsets.all(8.0),
+                      //   child: IconButton(
+                      //       icon: const Icon(Ionicons.send),
+                      //       onPressed: isConnected
+                      //           ? () => _sendStringToType(textEditingController.text)
+                      //           : null
+                      //           ),
+                      // ),
+                    ],
+                  ),
+                    SizedBox(height: 20,)
+                ]))
+        ])));
   }
+
 // @override
   Widget _buildCircularButton(
       {required IconData icon, required VoidCallback onPressed}) {
@@ -538,6 +512,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
       ),
     );
   }
+
   void close() {
     if (isConnected) {
       _streamSubscription = null;
@@ -555,13 +530,14 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
     }
   }
 
-  void zoomIn(){
+  void zoomIn() {
     _sendMessage("#*ZOOMIN@*");
   }
 
-  void zoomOut(){
+  void zoomOut() {
     _sendMessage("#*ZOOMOUT@*");
   }
+
   void present() {
     _sendMessage("#enter#@");
   }
@@ -570,6 +546,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
     _sendMessage("#enter#@");
     textEditingController.clear();
   }
+
   void exit() {
     _sendMessage("*#*esc*@*");
   }
@@ -585,16 +562,16 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
   void goLeft() {
     _sendMessage("*#*LEFT*@*");
   }
-  
-  void muteVolume(){
+
+  void muteVolume() {
     _sendMessage("#mute#@");
   }
 
-  void increaseVol(){
+  void increaseVol() {
     _sendMessage("#increasevol#@");
   }
 
-  void decreaseVol(){
+  void decreaseVol() {
     _sendMessage("#decreasevol#@");
   }
 
@@ -633,14 +610,14 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
             1,
             backspacesCounter > 0
                 ? _messageBuffer.substring(
-                0, _messageBuffer.length - backspacesCounter)
+                    0, _messageBuffer.length - backspacesCounter)
                 : _messageBuffer + dataString.substring(0, index)));
         _messageBuffer = dataString.substring(index);
       });
     } else {
       _messageBuffer = (backspacesCounter > 0
           ? _messageBuffer.substring(
-          0, _messageBuffer.length - backspacesCounter)
+              0, _messageBuffer.length - backspacesCounter)
           : _messageBuffer + dataString);
     }
   }
@@ -718,8 +695,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
 
     _dragEnabled = _leftClick;
     _sendMessage(
-        "*#*${(_leftClick ? 'DRAG' : '') +
-            Offset(deltaX, deltaY).toString()}*@*");
+        "*#*${(_leftClick ? 'DRAG' : '') + Offset(deltaX, deltaY).toString()}*@*");
 
     prevFocalPoint = dragUpdate.focalPoint;
     setState(() => _condition = true);
@@ -745,7 +721,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
   late double prevScale;
 
   _sendStringToType(String text) {
-    String _finalText = text[text.length -1];
+    String _finalText = text[text.length - 1];
     _sendMessage("*#*TYPE$_finalText*@*");
   }
 
@@ -761,8 +737,7 @@ class _RemoteConnectionPageState extends State<RemoteConnectionPage> {
     if (_previousText.length > currentText.length) {
       print("Backspace pressed!");
       _onBackspacePressed();
-    }
-    else{
+    } else {
       _sendStringToType(currentText);
     }
     _previousText = currentText;
@@ -784,26 +759,24 @@ class TouchArea extends StatelessWidget {
         width: MediaQuery.of(context).size.width * (4 / 6) - 25,
         height: MediaQuery.of(context).size.height - 100,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
-          // gradient: SweepGradient(
-          //   center: Alignment(dx, dy),
-          //   tileMode: TileMode.repeated,
-          //   colors: [
-          //     Color.fromARGB(150, 2, 130, 238),
-          //     Color.fromARGB(220, 2, 130, 238),
-          //     Color.fromARGB(255, 2, 130, 238),
-          //     Color.fromARGB(220, 2, 130, 238),
-          //     Color.fromARGB(150, 2, 130, 238),
-          //   ],
-          // ),
-          gradient: SweepGradient(
+            borderRadius: BorderRadius.circular(20.0),
+            // gradient: SweepGradient(
+            //   center: Alignment(dx, dy),
+            //   tileMode: TileMode.repeated,
+            //   colors: [
+            //     Color.fromARGB(150, 2, 130, 238),
+            //     Color.fromARGB(220, 2, 130, 238),
+            //     Color.fromARGB(255, 2, 130, 238),
+            //     Color.fromARGB(220, 2, 130, 238),
+            //     Color.fromARGB(150, 2, 130, 238),
+            //   ],
+            // ),
+            gradient: SweepGradient(
               colors: [Color(0xff00416a), Color(0xffe4e5e6)],
               stops: [0, 1],
               center: Alignment.center,
-            )
-        ),
+            )),
       ),
     );
   }
 }
-
