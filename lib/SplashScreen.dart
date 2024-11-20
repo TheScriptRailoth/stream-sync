@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stream_sync/MainPage.dart';
+import 'package:stream_sync/OptionPage.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 3));
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => MainPage()),
+      MaterialPageRoute(builder: (context) => Optionpage()),
     );
   }
 

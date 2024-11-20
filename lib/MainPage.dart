@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
@@ -95,7 +96,8 @@ class _MainPage extends State<MainPage> {
                   title: const Text('Devices discovery and connection')),
               visible: _bluetoothState.isEnabled,
             ),
-            Visibility(
+
+            Visibility(  
               visible: _bluetoothState.isEnabled,
               child: ListTile(
                 title: ElevatedButton(

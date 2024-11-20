@@ -44,6 +44,7 @@ dependencies:
   sensors_plus: ^6.0.1
   control_pad_plus: ^0.1.0
   device_info_plus: ^10.1.2
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - logo/streamsync logo.png
+    - assets/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
